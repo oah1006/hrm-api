@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\Employee\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function() {
         Route::post('/login', [LoginController::class, 'login'])->name('login');
     });
+
+    Route::apiResource('employees', EmployeeController::class);
 });

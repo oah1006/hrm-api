@@ -13,19 +13,21 @@ class LoginController extends Controller
 {
     public function login(LoginRequest $request) {
         $credentials  = $request->validated();
-
-        if (!Auth::attempt($request->only(['email', 'password']))) {
-            return response()->json([
-                'message' => __('auth.failed')
-            ], 401);
-        }
+        dump($credentials);
 
         $employee = Employee::where('email', $credentials['email'])->first();
-        $token = $employee->createToken('apitoken');
+
+        if ($employee && Hash::check($credentials['password'], $employee->password)) {
+            $token = $employee->createToken('apitoken');
+
+            return response()->json([
+                'employee' => $employee,
+                'token' => $token->plainTextToken
+            ]);
+        }
 
         return response()->json([
-            'employee' => $employee,
-            'token' => $token->plainTextToken()
-        ]);
+            'message' => __('auth.failed')
+        ], 401);
     }
 }
