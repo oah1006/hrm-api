@@ -6,6 +6,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Employee\CreateEmployeeRequest;
+use App\Http\Requests\Admin\Employee\UpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -70,7 +71,8 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+
+
     }
 
     /**
@@ -80,9 +82,21 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEmployeeRequest $request, $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $data = $request->validated();
+
+        if ($data['password']) {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $employee->update($data);
+
+        return response()->json([
+            'employee' => $employee
+        ]);
+
     }
 
     /**
