@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Department;
 
-use App\Http\Controllers\Controller;
+use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Department\CreateDepartmentRequest;
 
 class DepartmentController extends Controller
 {
@@ -33,9 +35,15 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDepartmentRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $department = Department::create($data);
+
+        return response()->json([
+            'department' => $department
+        ]);
     }
 
     /**

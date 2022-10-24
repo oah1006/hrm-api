@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Employee\EmployeeController;
+use App\Http\Controllers\Admin\Department\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,5 @@ Route::prefix('admin')->name('admin.')->group(function() {
     });
 
     Route::apiResource('employees', EmployeeController::class);
+    Route::apiResource('department', DepartmentController::class);
 });
