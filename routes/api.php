@@ -27,5 +27,5 @@ Route::prefix('admin')->name('admin.')->group(function() {
     });
 
     Route::apiResource('employees', EmployeeController::class);
-    Route::apiResource('department', DepartmentController::class);
+    Route::apiResource('departments', DepartmentController::class);
 });
