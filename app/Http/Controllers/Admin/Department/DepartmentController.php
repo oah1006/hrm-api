@@ -6,6 +6,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Department\CreateDepartmentRequest;
+use App\Http\Requests\Admin\Department\UpdateDepartmentRequest;
 
 class DepartmentController extends Controller
 {
@@ -75,9 +76,18 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDepartmentRequest $request, $id)
     {
-        //
+        $department = Department::findOrFail($id);
+
+        $data = $request->validated();
+
+        $department->update($data);
+
+        return response()->json([
+            'department' => $department
+        ]);
+
     }
 
     /**
