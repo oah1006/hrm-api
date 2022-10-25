@@ -32,7 +32,8 @@ class CreateEmployeeRequest extends FormRequest
             'phone_number' => ['required', new PhoneNumber],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:0,1,2'],
-            'department_id' => ['nullable', 'exists:departments,id']
+            'department_id' => ['nullable', 'exists:departments,id'],
+            'position_id' => ['nullable', 'exists:positions,id']
         ];
     }
 }
