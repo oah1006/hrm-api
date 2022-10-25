@@ -98,6 +98,10 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $department = Department::findOrFail($id);
+
+        $department->delete();
+
+        return response()->noContent();
     }
 }
