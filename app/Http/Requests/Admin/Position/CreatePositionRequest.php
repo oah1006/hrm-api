@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Department;
+namespace App\Http\Requests\Admin\Position;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateDepartmentRequest extends FormRequest
+class CreatePositionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class CreateDepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'department_name' => ['required', 'string', 'unique:departments,department_name'],
-            'description' => ['nullable', 'string', 'min:2', 'max:255'],
+            'position_name' => ['required', 'string', 'unique:positions,position_name'],
+            'description' => ['nullable', 'string', 'min:2', 'max:255']
         ];
     }
 }
