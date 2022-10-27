@@ -33,7 +33,8 @@ class CreateEmployeeRequest extends FormRequest
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:0,1,2'],
             'department_id' => ['nullable', 'exists:departments,id'],
-            'position_id' => ['nullable', 'exists:positions,id']
+            'position_id' => ['nullable', 'exists:positions,id'],
+            'status' => ['required', 'in:active,disabled']
         ];
     }
 }
