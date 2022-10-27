@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Position;
 
-use App\Http\Controllers\Controller;
+use App\Models\Position;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Position\CreatePositionRequest;
+use App\Http\Requests\Admin\Position\UpdatePositionRequest;
 
 class PositionController extends Controller
 {
@@ -33,9 +36,15 @@ class PositionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePositionRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $position = Position::create($data);
+
+        return response()->json([
+            'position' => $position
+        ]);
     }
 
     /**
@@ -67,9 +76,17 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePositionRequest $request, $id)
     {
-        //
+        $position = Position::findOrFail($id);
+
+        $data = $request->validated();
+
+        $position->update($data);
+
+        return response()->json([
+            'position' => $position
+        ]);
     }
 
     /**
@@ -80,6 +97,10 @@ class PositionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $position = Position::findOrFail($id);
+
+        $position->delete();
+
+        return response()->noContent();
     }
 }
