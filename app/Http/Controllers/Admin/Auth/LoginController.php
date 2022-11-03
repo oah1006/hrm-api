@@ -23,11 +23,21 @@ class LoginController extends Controller
             return response()->json([
                 'employee' => $employee,
                 'token' => $token->plainTextToken
-            ]);
+            ]);     
         }
 
         return response()->json([
             'message' => __('auth.failed')
         ], 401);
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.auth.login');
     }
 }

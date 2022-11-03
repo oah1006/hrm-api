@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Employee\EmployeeController;
 use App\Http\Controllers\Admin\Position\PositionController;
+use App\Http\Controllers\Admin\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\Department\DepartmentController;
 
 /*
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function() {
         Route::post('/login', [LoginController::class, 'login'])->name('login');
+        Route::post('/change-password', [ChangePasswordController::class, 'change-password'])->name('change-password');
     });
 
     Route::apiResource('employees', EmployeeController::class);
