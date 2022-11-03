@@ -13,7 +13,6 @@ class LoginController extends Controller
 {
     public function login(LoginRequest $request) {
         $credentials  = $request->validated();
-        dump($credentials);
 
         $employee = Employee::where('email', $credentials['email'])->first();
 

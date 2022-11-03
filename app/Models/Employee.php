@@ -26,7 +26,8 @@ class Employee extends Authenticatable
         'gender',
         'email',
         'password',
-        'department_id'
+        'department_id',
+        'position_id'
     ];
 
     /**
