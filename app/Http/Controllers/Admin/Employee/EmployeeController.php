@@ -87,10 +87,6 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
         $data = $request->validated();
 
-        if ($data['password']) {
-            $data['password'] = bcrypt($data['password']);
-        }
-
         $employee->update($data);
 
         return response()->json([
