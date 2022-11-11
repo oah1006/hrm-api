@@ -11,6 +11,8 @@ use App\Http\Requests\Admin\Auth\LoginRequest;
 
 class LoginController extends Controller
 {
+    
+    
     public function login(LoginRequest $request) {
         $credentials  = $request->validated();
 

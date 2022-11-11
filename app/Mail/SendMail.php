@@ -22,7 +22,7 @@ class SendMail extends Mailable
      *
      * @return void
      */
-    public function __construct(Employee $employee)
+    public function __construct()
     {
         $this->employee = $employee;
     }
