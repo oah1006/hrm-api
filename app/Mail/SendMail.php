@@ -15,16 +15,16 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $employee;
+    public $otp;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($otp)
     {
-        $this->employee = $employee;
+        $this->otp = $otp;
     }
 
     /**
@@ -48,6 +48,9 @@ class SendMail extends Mailable
     {
         return new Content(
             view: 'emails.send-email',
+            with: [
+                'otp' => $this->otp
+            ]
         );
     }
 

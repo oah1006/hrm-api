@@ -26,12 +26,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function() {
         Route::post('/login', [LoginController::class, 'login'])->name('login');
+        Route::post('/send-otp', [SendOtpController::class, 'requestOtp'])->name('send-otp');       
     });
 
     Route::middleware('auth:sanctum')->group(function() {
         Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password');
-        Route::post('/send-email', [ChangePasswordController::class, 'sendEmail'])->name('send-email')->middleware('auth:sanctum');
-        
         Route::apiResource('employees', EmployeeController::class)->middleware('auth:sanctum');
         Route::apiResource('departments', DepartmentController::class);
         Route::apiResource('positions', PositionController::class);

@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('otps', function (Blueprint $table) {
             $table->id();
-            $table->email();
-            $table->token();
-            $table->created_at()->useCurrent();
-            $table->timestamps();
+            $table->string('email');
+            $table->string('token');
+            $table->date('created_at')->useCurrent();
         });
     }
 
