@@ -13,11 +13,5 @@ use Illuminate\Auth\Events\PasswordReset;
 
 class ForgotPasswordController extends Controller
 {
-    public function sendEmail(Request $request) {
-        Mail::to($request->user())->send(new SendMail($request->user()));
-    }
-    
-    public function sendRequestPasswordLink(Request $request) {
-        
-    }
+
 }
