@@ -27,7 +27,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function() {
         Route::post('/login', [LoginController::class, 'login'])->name('login');
-        Route::post('/send-otp', [SendOtpController::class, 'requestOtp'])->name('send-otp');       
+        Route::post('/send-otp', [SendOtpController::class, 'requestOtp'])->name('send-otp');
+        Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->name('forgot-password');       
     });
 
     Route::middleware('auth:sanctum')->group(function() {

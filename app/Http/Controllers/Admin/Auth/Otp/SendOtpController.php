@@ -27,6 +27,7 @@ class SendOtpController extends Controller
         Mail::to($request->email)->send(new SendMail($otp));
 
         return response()->json([
+            'insertOtp' => $insertOtp,
             'message' => "OTP sent sucessfully!"
         ]);
     }

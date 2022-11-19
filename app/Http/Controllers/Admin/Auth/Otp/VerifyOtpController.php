@@ -17,6 +17,7 @@ class VerifyOtpController extends Controller
 
         if ($otp && Hash::check($otpCode->token, $otp->token) && $otp->expires_at > now()) {
             return response()->json([
+                'token' => $otp->token,
                 'message' => 'Your OTP is valid!'
             ]);
         }
