@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class EmployeeSeeder extends Seeder
 {
@@ -14,6 +15,17 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('employees')->insert([
+            'first_name' => 'HRM',
+            'last_name' => 'Admin',
+            'email' => 'bnhao10062001@gmail.com',
+            'password' => bcrypt('admin'),
+            'phone_number' => '0931345672',
+            'birth_date' => '2001/06/10',
+            'department_id' => 1,
+            'gender' => '0',
+            'status' => 'active',
+            'position_id' => 2
+        ]);
     }
 }
