@@ -16,11 +16,13 @@ class SendOtpController extends Controller
 {
     public function requestOtp(SendOtpRequest $request) {
         $otp = fake()->randomNumber(6, true);
+
+        dump($otp);
         
         $insertOtp = Otp::insert([
             'email' => $request->email,
             'token' => Hash::make($otp),
-            'expire_at' => Carbon::now()->addMinutes(1),
+            'expires_at' => Carbon::now()->addMinutes(1),
         ]);
 
 

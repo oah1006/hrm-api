@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\Otp\SendOtpController;
 use App\Http\Controllers\Admin\Employee\EmployeeController;
 use App\Http\Controllers\Admin\Position\PositionController;
+use App\Http\Controllers\Admin\Auth\Otp\VerifyOtpController;
 use App\Http\Controllers\Admin\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\Department\DepartmentController;
 
@@ -28,6 +29,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function() {
         Route::post('/login', [LoginController::class, 'login'])->name('login');
         Route::post('/send-otp', [SendOtpController::class, 'requestOtp'])->name('send-otp');
+        Route::post('/verify-otp', [VerifyOtpController::class, 'verifyOtp'])->name('verify-otp');
         Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->name('forgot-password')->middleware('checkotp');       
     });
 

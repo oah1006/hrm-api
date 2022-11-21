@@ -11,15 +11,23 @@ use App\Http\Requests\Admin\Auth\Otp\VerifyOtpRequest;
 class VerifyOtpController extends Controller
 {
     public function verifyOtp(VerifyOtpRequest $request) {
-        $otpCode = $request->validated();
+        $data = $request->validated();
 
         $otp = Otp::where('email', $request->email)->first();
 
-        if ($otp && Hash::check($otpCode->token, $otp->token) && $otp->expires_at > now()) {
+        dump($data['otpCode']);
+
+        dump(Hash::check($data['otpCode'], $otp->token));
+
+        if ($otp && Hash::check($data['otpCode'], $otp->token) && $otp->expires_at > now()) {
             return response()->json([
                 'token' => $otp->token,
                 'message' => 'Your OTP is valid!'
             ]);
         }
+
+        return response()->json([
+            'message' => 'Your OTP is invalid!'
+        ]);
     }
 }
