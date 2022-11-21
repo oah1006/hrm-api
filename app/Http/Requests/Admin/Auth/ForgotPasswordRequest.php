@@ -24,6 +24,7 @@ class ForgotPasswordRequest extends FormRequest
     public function rules()
     {
         return [
+            'email' => ['string', 'email', 'exists:otps,email'],
             'new_password' => ['required', 'string', 'confirmed']
         ];
     }

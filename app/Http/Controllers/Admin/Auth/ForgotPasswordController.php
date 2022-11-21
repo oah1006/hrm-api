@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use auth;
+use App\Models\Otp;
 use App\Models\User;
 use App\Mail\SendMail;
+use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,11 +20,16 @@ class ForgotPasswordController extends Controller
 {
     public function forgotPassword(ForgotPasswordRequest $request) {
         $data = $request->validated();
-        $user = User::findOrFail($request->id);
-        $user->password = bcrypt($data->password);
+
+        $employee = Employee::where('email', $data['email'])->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        $request->otp->delete();
 
         return response()->json([
-            'message' => 'Reset password sucessfully!'  
+            'employee' => $employee,
+            'message' => "Update password employee successfully!"
         ]);
     }
 }
