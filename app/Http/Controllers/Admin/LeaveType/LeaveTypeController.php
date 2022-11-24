@@ -6,6 +6,7 @@ use App\Models\LeaveType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LeaveType\CreateLeaveTypeRequest;
+use App\Http\Requests\Admin\LeaveType\UpdateLeaveTypeRequest;
 
 class LeaveTypeController extends Controller
 {
@@ -76,9 +77,16 @@ class LeaveTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateLeaveTypeRequest $request, $id)
     {
-        //
+        $leaveType = LeaveType::findOrFail($id);
+
+        $leaveType->update($request->validated());
+
+        return response()->json([
+            'message' => 'Update type of leave successfully!',
+            'leaveType' => $leaveType
+        ]);
     }
 
     /**
