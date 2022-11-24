@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin\LeaveType;
 
-use App\Http\Controllers\Controller;
+use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\LeaveType\CreateLeaveTypeRequest;
 
 class LeaveTypeController extends Controller
 {
@@ -24,7 +26,7 @@ class LeaveTypeController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -33,9 +35,16 @@ class LeaveTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(CreateLeaveTypeRequest $request)
+    {   
+        $data = $request->validated();
+
+        $leaveType = LeaveType::create($data);
+        
+        return response()->json([
+            'message' => 'Create type of leave sucessfully!',
+            'leaveType' => $leaveType
+        ]);
     }
 
     /**
