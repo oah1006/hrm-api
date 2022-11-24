@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('end_day');
             $table->string('reason');
             $table->enum('status', ['pending', 'approved', 'rejected']);
+            $table->unsignedBigInteger('leave_type_id')->nullable();
             $table->timestamps();
         });
     }

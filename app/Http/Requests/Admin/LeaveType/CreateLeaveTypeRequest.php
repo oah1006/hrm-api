@@ -13,7 +13,7 @@ class CreateLeaveTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class CreateLeaveTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-        ];
+            'type_name' => ['required', 'string', 'max:255'],
+        ];  
     }
 }

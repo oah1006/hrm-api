@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Position\PositionController;
 use App\Http\Controllers\Admin\Auth\Otp\VerifyOtpController;
 use App\Http\Controllers\Admin\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\LeaveType\LeaveTypeController;
 use App\Http\Controllers\Admin\Department\DepartmentController;
 
 /*
@@ -36,9 +37,10 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
     Route::middleware('auth:sanctum')->group(function() {
         Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password');
-        Route::apiResource('employees', EmployeeController::class)->middleware('auth:sanctum');
+        Route::apiResource('employees', EmployeeController::class);
         Route::apiResource('departments', DepartmentController::class);
         Route::apiResource('positions', PositionController::class);
+        Route::apiResource('leave-types', LeaveTypeController::class);
     });
 
     

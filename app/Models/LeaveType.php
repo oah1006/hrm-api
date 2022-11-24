@@ -11,6 +11,5 @@ class LeaveType extends Model
 
     protected $fillable = [
         'type_name',
-        'leave_id'
     ];
 }
