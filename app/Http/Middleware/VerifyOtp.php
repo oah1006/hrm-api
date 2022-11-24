@@ -17,14 +17,15 @@ class VerifyOtp
      */
     public function handle(Request $request, Closure $next)
     {
-        $otp = Otp::where('email', $request->email)->first();
-
+        dump($request->header('token'));
+        $otp = Otp::where('token', $request->header('token'))->first();
+        
         if (!$otp || $otp->expires_at < now()) {
             return response()->json([
-                "message" => "error",
+                "message" => "OTP is invalid!",
             ]);
         }
-        $request->megre([
+        $request->merge([
             "otp" => $otp,
         ]);
         

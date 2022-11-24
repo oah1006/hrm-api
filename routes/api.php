@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Employee\EmployeeController;
 use App\Http\Controllers\Admin\Position\PositionController;
 use App\Http\Controllers\Admin\Auth\Otp\VerifyOtpController;
 use App\Http\Controllers\Admin\Auth\ChangePasswordController;
+use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Department\DepartmentController;
 
 /*
