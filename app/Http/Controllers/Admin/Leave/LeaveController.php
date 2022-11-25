@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Leave;
 
-use App\Http\Controllers\Controller;
+use App\Models\Leave;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Leave\CreateLeaveRequest;
+use App\Http\Requests\Admin\Leave\UpdateLeaveRequest;
 
 class LeaveController extends Controller
 {
@@ -33,9 +36,16 @@ class LeaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateLeaveRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $leave = Leave::create($data);
+
+        return response()->json([
+            'message' => 'Create leave successfully!!!',
+            'leave' => $leave
+        ]);
     }
 
     /**
@@ -67,9 +77,16 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateLeaveRequest $request, $id)
     {
-        //
+        $leave = Leave::findOrFail($id);
+
+        $leave->update($request->validated());
+
+        return response()->json([
+            'message' => 'Update leave successfully!!!',
+            'leave' => $leave
+        ]);
     }
 
     /**

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\Leave\LeaveController;
 use App\Http\Controllers\Admin\Auth\Otp\SendOtpController;
 use App\Http\Controllers\Admin\Employee\EmployeeController;
 use App\Http\Controllers\Admin\Position\PositionController;
@@ -41,6 +42,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::apiResource('departments', DepartmentController::class);
         Route::apiResource('positions', PositionController::class);
         Route::apiResource('leave-types', LeaveTypeController::class);
+        Route::apiResource('leaves', LeaveController::class);
     });
 
     
