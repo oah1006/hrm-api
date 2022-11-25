@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
-            $table->string('leave_type');
+            $table->unsignedBigInteger('leave_type_id')->nullable();
             $table->date('start_day');
             $table->date('end_day');
             $table->string('reason');
             $table->enum('status', ['pending', 'approved', 'rejected']);
-            $table->unsignedBigInteger('leave_type_id')->nullable();
             $table->timestamps();
         });
     }
