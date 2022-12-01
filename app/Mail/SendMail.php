@@ -22,9 +22,10 @@ class SendMail extends Mailable
      *
      * @return void
      */
-    public function __construct($otp)
+    public function __construct($otp, $otps)
     {
         $this->otp = $otp;
+        $this->otps = $otps;
     }
 
     /**
@@ -49,7 +50,8 @@ class SendMail extends Mailable
         return new Content(
             view: 'emails.send-email',
             with: [
-                'otp' => $this->otp
+                'otp' => $this->otp,
+                'otps' => $this->otps
             ]
         );
     }
