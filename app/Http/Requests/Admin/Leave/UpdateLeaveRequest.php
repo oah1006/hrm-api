@@ -23,12 +23,17 @@ class UpdateLeaveRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'leave_type_id' => ['nullable', 'exists:leave_types,id'],
             'start_day' => ['required', 'date'],
             'end_day' => ['required', 'date'],
             'reason' => ['required', 'string', 'min:2', 'max:255'],
-            'status' => ['required', 'in:pending,approved,rejected']
         ];
+
+        if (auth()->user()->rule == 'admin') {
+            $rules['status'] = ['status' => ['nullable', 'in:pending,approved,rejected']];
+        }
+
+        return $rules;
     }
 }
