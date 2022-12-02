@@ -24,7 +24,7 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'unique:employees,email,'.$this->user()->getKey()],
@@ -32,8 +32,11 @@ class UpdateEmployeeRequest extends FormRequest
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:0,1,2'],
             'department_id' => ['nullable', 'exists:departments,id'],
-            'position_id' => ['nullable', 'exists:positions,id'],
-            'status' => ['required', 'in:active,disabled']
         ];
+
+        if (auth()->user()->role == 'admin') {
+            $rules['status'] = ['required', 'in:active,disabled'];
+            $rules['role'] = ['nullable', 'in:admin,employee'];
+        }
     }
 }
