@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('birth_date')->index();
             $table->enum('gender', [0, 1, 2])->index();
             $table->string('password');
+            $table->enum('role', ['admin', 'employee']);
             $table->timestamps();
         });
     }

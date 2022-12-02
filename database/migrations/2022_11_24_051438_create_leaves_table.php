@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('start_day');
             $table->date('end_day');
             $table->string('reason');
-            $table->enum('status', ['pending', 'approved', 'rejected']);
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending')->nullable();
             $table->timestamps();
         });
     }
