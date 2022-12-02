@@ -19,7 +19,7 @@ class isAdmin
     {
         if (!auth()->check() || auth()->user()->role != "admin") {
             return response()->json([
-                'message' => "This is not a admin!"
+                'message' => "You don't have permission admin!"
             ]);
         }
 
