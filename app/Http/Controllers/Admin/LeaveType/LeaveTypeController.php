@@ -97,6 +97,10 @@ class LeaveTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $leaveType = LeaveType::findOrFail($id);
+
+        $leaveType->delete();
+
+        return response()->noContent();
     }
 }
