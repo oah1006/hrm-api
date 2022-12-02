@@ -31,7 +31,7 @@ class CreateLeaveRequest extends FormRequest
         ];
 
         if (auth()->user()->rule == 'admin') {
-            $rules['status'] = ['status' => ['nullable', 'in:pending,approved,rejected']];
+            $rules['status'] = ['nullable', 'in:pending,approved,rejected'];
         }
 
         return $rules;
