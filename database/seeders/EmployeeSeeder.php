@@ -25,7 +25,6 @@ class EmployeeSeeder extends Seeder
             'department_id' => 1,
             'gender' => '0',
             'status' => 'active',
-            'position_id' => 2
         ]);
     }
 }
