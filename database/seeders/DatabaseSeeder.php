@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             EmployeeSeeder::class,
-            LeaveTypeSeeder::class
+            LeaveTypeSeeder::class,
+            DepartmentSeeder::class,
         ]);
     }
 }
