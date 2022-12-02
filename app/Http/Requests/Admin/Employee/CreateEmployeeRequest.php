@@ -24,19 +24,17 @@ class CreateEmployeeRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'unique:employees,email,'.$this->user()->getKey()],
+            'email' => ['required', 'string', 'unique:employees,email'],
+            'password' => ['nullable', 'string'],
             'phone_number' => ['required', new PhoneNumber],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:0,1,2'],
             'department_id' => ['nullable', 'exists:departments,id'],
+            'role' => ['required', 'in:admin,employee'],
+            'status' => ['required', 'in:active,disabled']
         ];
-
-        if (auth()->user()->role == 'admin') {
-            $rules['status'] = ['required', 'in:active,disabled'];
-            $rules['role'] = ['nullable', 'in:admin,employee'];
-        }
     }
 }
