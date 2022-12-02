@@ -17,7 +17,6 @@ class VerifyOtp
      */
     public function handle(Request $request, Closure $next)
     {
-        dump($request->header('token'));
         $otp = Otp::where('token', $request->header('token'))->first();
         
         if (!$otp || $otp->expires_at < now()) {
