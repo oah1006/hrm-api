@@ -15,9 +15,43 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
+        $employees = Employee::query();
+
+        if ($request->filled('keywords')) {
+            $q = $request->keywords;
+
+            $employees->where(function($query) use ($q) {
+                $query->where('first_name', 'like', '%' . $q . '%')
+                    ->orWhere('last_name', 'like', '%' . $q . '%')
+                    ->orWhere('email', 'like', '%' . $q . '%')
+                    ->orWhere('phone_number', '%' . $q . '%')
+                    ->orWhere('birth_date', 'like', '%' . $q . '%');
+            });
+        }
+
+        if ($request->filled('gender')) {
+            $gender = $request->gender;
+
+            $employees->where('gender', $gender);
+        }
+
+        if ($request->filled('role')) {
+            $role = $request->role;
+            
+            $employees->where('role', $role);
+        }
+
+        if ($request->filled('department_id')) {
+            $departmentId = $request->department_id;
+
+            $employees->where('department_id', $departmentId);
+        }
+
+        return response()->json([
+            'employees' => $employees,
+        ]);
     }
 
     /**
@@ -42,14 +76,17 @@ class EmployeeController extends Controller
 
         $data['password'] = bcrypt($data['password']);
 
-        $employee = Employee::create($data);
+        if (auth()->user()->role == 'admin') {
+            $employee = Employee::create($data);
+            $token = $employee->createToken('apitoken');
 
-        $token = $employee->createToken('apitoken');
+            return response()->json([
+                'employees' => $employee,
+                'token' => $token->plainTextToken
+            ]);
+        }
 
-        return response()->json([
-            'employees' => $employee,
-            'token' => $token->plainTextToken
-        ]);
+        return response()->json(['message' => 'You don\'t have permission to create this employee!']);
     }
 
     /**
@@ -92,7 +129,6 @@ class EmployeeController extends Controller
         return response()->json([
             'employee' => $employee
         ]);
-
     }
 
     /**
@@ -102,10 +138,13 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
         $employee = Employee::findOrFail($id);
-        $employee->delete();
 
-        return response()->noContent();
+        if (auth()->user()->role == 'admin') {
+            $employee->delete();
+        }
+
+        return response()->json(['message', 'You don\'t have permission to delete this employee!']);
     }
 }
