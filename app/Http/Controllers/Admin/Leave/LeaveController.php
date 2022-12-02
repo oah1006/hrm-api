@@ -97,6 +97,12 @@ class LeaveController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $leave = Leave::findOrFail($id);
+
+        if (auth()->user()->role == 'admin') {
+            $leave->delete();
+        }
+
+        return response()->noContent();
     }
 }
