@@ -32,8 +32,6 @@ class CreateLeaveRequest extends FormRequest
 
         if (auth()->user()->rule == 'admin') {
             $rules['status'] = ['nullable', 'in:pending,approved,rejected'];
-        } else {
-            return response()->json(['message' => 'You don\'t have permission to create status leave!']);
         }
 
         return $rules;

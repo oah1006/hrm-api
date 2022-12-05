@@ -38,5 +38,7 @@ class UpdateEmployeeRequest extends FormRequest
             $rules['status'] = ['required', 'in:active,disabled'];
             $rules['role'] = ['nullable', 'in:admin,employee'];
         }
+
+        return $rules;
     }
 }
