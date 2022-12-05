@@ -15,9 +15,20 @@ class LeaveTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $leaveTypes = LeaveType::query();   
+        if ($request->filled('keywords')) {
+            $q = $request->keywords;
+
+            $leaveTypes->where(function ($query) use ($q) {
+                $query->where('type_name', 'like', '%' . $q . '%');
+            });
+        }
+
+        $leaveTypes = $leaveTypes->paginate(4);
+
+        return response()->json($leaveTypes);
     }
 
     /**
