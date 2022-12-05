@@ -15,9 +15,33 @@ class LeaveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $leaves = Leave::query();
+
+        if ($request->filled('keywords')) {
+            $q = $request->keywords;
+
+            $leaves->where(function ($query) use ($q) {
+                $query->where('start_day', 'like', '%' . $q . '%')
+                    ->orWhere('end_day', 'like', '%' . $q . '%')
+                    ->orWhere('reason', 'like', '%' . $q . '%');
+            });
+        }
+
+        if ($request->filled('leave_type_id')) {
+            $leaveTypeId = $request->leave_type_id;
+            $leaves->where('leave_type_id', $leaveTypeId);
+        }
+
+        if ($request->filled('status')) {
+            $status = $request->status;
+            $status->where('status', $status);
+        }
+
+        $leaves = $leaves->paginate(8);
+
+        return response()->json($leaves);
     }
 
     /**
