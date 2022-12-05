@@ -49,9 +49,9 @@ class EmployeeController extends Controller
             $employees->where('department_id', $departmentId);
         }
 
-        return response()->json([
-            'employees' => $employees,
-        ]);
+        $employees = $employees->paginate(10);
+
+        return response()->json($employees);
     }
 
     /**
