@@ -15,9 +15,22 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $departments = Department::query();
+
+        if ($request->filled('keywords')) {
+            $q = $request->keywords;
+
+            $departments->where(function($query) use ($q) {
+                $query->where('department_name', 'like', '%' . $q . '%')
+                    ->orWhere('description', 'like', '%' . $q . '%');
+            });
+        }
+
+        $departments = $departments->paginate(4);
+
+        return response()->json($departments);
     }
 
     /**
