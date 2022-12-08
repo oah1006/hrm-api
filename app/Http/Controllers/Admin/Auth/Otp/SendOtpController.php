@@ -16,9 +16,10 @@ class SendOtpController extends Controller
 {
     public function requestOtp(SendOtpRequest $request) {
         $otp = fake()->randomNumber(6, true);
-        
-        $otps = Otp::where('email', $request->email)->first();
-       
+
+        $email = $request->get('email');
+
+
         $insertOtp = Otp::insert([
             'email' => $request->email,
             'token' => Hash::make($otp),
@@ -26,7 +27,7 @@ class SendOtpController extends Controller
         ]);
 
 
-        Mail::to($request->email)->send(new SendMail($otp, $otps));
+        Mail::to($request->email)->send(new SendMail($otp, $email));
 
         return response()->json([
             'insertOtp' => $insertOtp,

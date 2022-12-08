@@ -14,10 +14,7 @@ class VerifyOtpController extends Controller
         $data = $request->validated();
 
         $otp = Otp::where('email', $request->email)->first();
-
-        dump($data['otpCode']);
-
-        dump(Hash::check($data['otpCode'], $otp->token));
+        
 
         if ($otp && Hash::check($data['otpCode'], $otp->token) && $otp->expires_at > now()) {
             return response()->json([
