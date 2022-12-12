@@ -56,7 +56,8 @@ class DepartmentController extends Controller
         $department = Department::create($data);
 
         return response()->json([
-            'department' => $department
+            'department' => $department,
+            'message' => 'Create department successfully!'
         ]);
     }
 
@@ -98,7 +99,8 @@ class DepartmentController extends Controller
         $department->update($data);
 
         return response()->json([
-            'department' => $department
+            'department' => $department,
+            'message' => 'Update department successfully!'
         ]);
 
     }
@@ -115,6 +117,6 @@ class DepartmentController extends Controller
 
         $department->delete();
 
-        return response()->noContent();
+        return response()->json(['message' => 'Delete department successfully!']);
     }
 }

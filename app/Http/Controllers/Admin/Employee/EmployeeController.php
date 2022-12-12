@@ -39,7 +39,7 @@ class EmployeeController extends Controller
 
         if ($request->filled('role')) {
             $role = $request->role;
-            
+
             $employees->where('role', $role);
         }
 
@@ -138,11 +138,12 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   
+    {
         $employee = Employee::findOrFail($id);
 
         if (auth()->user()->role == 'admin') {
             $employee->delete();
+            return response()->json(['message', 'Delete employee successfully!']);
         }
 
         return response()->json(['message', 'You don\'t have permission to delete this employee!']);

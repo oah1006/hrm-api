@@ -32,8 +32,6 @@ class UpdateLeaveRequest extends FormRequest
 
         if (auth()->user()->rule == 'admin') {
             $rules['status'] = ['nullable', 'in:pending,approved,rejected'];
-        } else {
-            return response()->json(['message' => 'You don\'t have permission to edit status leave!']);
         }
 
         return $rules;
