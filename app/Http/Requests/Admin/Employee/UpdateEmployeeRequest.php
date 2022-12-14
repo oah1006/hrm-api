@@ -31,12 +31,12 @@ class UpdateEmployeeRequest extends FormRequest
             'phone_number' => ['required', new PhoneNumber],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:0,1,2'],
-            'department_id' => ['nullable', 'exists:departments,id'],
         ];
 
         if (auth()->user()->role == 'admin') {
             $rules['status'] = ['required', 'in:active,disabled'];
             $rules['role'] = ['nullable', 'in:admin,employee'];
+            $rules['department_id'] = ['nullable', 'exists:departments,id'];
         }
 
         return $rules;
