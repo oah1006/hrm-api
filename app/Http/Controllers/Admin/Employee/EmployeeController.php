@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin\Employee;
 
 use App\Models\Employee;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Employee\CreateEmployeeRequest;
 use App\Http\Requests\Admin\Employee\UpdateEmployeeRequest;
+
+
 
 class EmployeeController extends Controller
 {
@@ -17,7 +20,8 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        $employees = Employee::query();
+        $employees = Employee::with('department');
+        
 
         if ($request->filled('keywords')) {
             $q = $request->keywords;
@@ -51,6 +55,7 @@ class EmployeeController extends Controller
 
         $employees = $employees->paginate(10);
 
+
         return response()->json($employees);
     }
 
@@ -80,13 +85,16 @@ class EmployeeController extends Controller
             $employee = Employee::create($data);
             $token = $employee->createToken('apitoken');
 
+            $departmentNames = Department::all();
+
             return response()->json([
-                'employees' => $employee,
+                'departmentNames' => $departmentNames,
+                'employee' => $employee,
                 'token' => $token->plainTextToken
-            ]);
+            ], 200);
         }
 
-        return response()->json(['message' => 'You don\'t have permission to create this employee!']);
+        return response()->json(['message' => 'You don\'t have permission to create this employee!'], 400);
     }
 
     /**
@@ -97,7 +105,11 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+
+        $employee->load('department');
+
+        return response()->json($employee);
     }
 
     /**
@@ -128,7 +140,7 @@ class EmployeeController extends Controller
 
         return response()->json([
             'employee' => $employee
-        ]);
+        ], 200);
     }
 
     /**
@@ -143,9 +155,9 @@ class EmployeeController extends Controller
 
         if (auth()->user()->role == 'admin') {
             $employee->delete();
-            return response()->json(['message', 'Delete employee successfully!']);
+            return response()->json(['message', 'Delete employee successfully!'], 200);
         }
 
-        return response()->json(['message', 'You don\'t have permission to delete this employee!']);
+        return response()->json(['message', 'You don\'t have permission to delete this employee!'], 400);
     }
 }
