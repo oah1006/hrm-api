@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\Auth\LoginRequest;
+use Laravel\Passport\HasApiTokens;
+
 
 class LoginController extends Controller
 {
@@ -31,12 +33,8 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request) {
-        Auth::logout();
+        $request->user()->tokens()->delete();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect()->route('admin.auth.login');
+        return response()->json(['message' => 'Logged out successfully!']);
     }
 }
