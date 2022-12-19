@@ -28,7 +28,7 @@ class DepartmentController extends Controller
             });
         }
 
-        $departments = $departments->paginate(4);
+        $departments = $departments->paginate(10);
 
         return response()->json($departments);
     }
