@@ -22,11 +22,12 @@ class VerifyOtp
         if (!$otp || $otp->expires_at < now()) {
             return response()->json([
                 "message" => "OTP is invalid!",
-            ]);
+            ], 400);
         }
+        
         $request->merge([
             "otp" => $otp,
-        ]);
+        ], 200);
         
         return $next($request);
 
