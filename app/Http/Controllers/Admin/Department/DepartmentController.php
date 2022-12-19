@@ -69,7 +69,9 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $department = Department::findOrFail($id);
+        
+        return response()->json($department);
     }
 
     /**
