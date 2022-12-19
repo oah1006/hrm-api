@@ -20,11 +20,11 @@ class VerifyOtpController extends Controller
             return response()->json([
                 'token' => $otp->token,
                 'message' => 'Your OTP is valid!'
-            ]);
+            ], 200);
         }
 
         return response()->json([
             'message' => 'Your OTP is invalid!'
-        ]);
+        ], 400);
     }
 }

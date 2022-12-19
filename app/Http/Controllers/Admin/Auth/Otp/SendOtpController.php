@@ -32,6 +32,6 @@ class SendOtpController extends Controller
         return response()->json([
             'insertOtp' => $insertOtp,
             'message' => "OTP sent sucessfully!"
-        ]);
+        ], 200);
     }
 }
