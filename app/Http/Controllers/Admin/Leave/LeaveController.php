@@ -17,7 +17,7 @@ class LeaveController extends Controller
      */
     public function index(Request $request)
     {
-        $leaves = Leave::query();
+        $leaves = Leave::with(['employee', 'leaveType']);
 
         if ($request->filled('keywords')) {
             $q = $request->keywords;
@@ -51,7 +51,7 @@ class LeaveController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -80,7 +80,10 @@ class LeaveController extends Controller
      */
     public function show($id)
     {
-        //
+        $leave = Leave::findOrFail($id);
+        $leave->load('employee', 'leaveType');
+
+        return response()->json($leave);
     }
 
     /**
