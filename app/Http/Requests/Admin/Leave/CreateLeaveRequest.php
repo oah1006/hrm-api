@@ -24,6 +24,7 @@ class CreateLeaveRequest extends FormRequest
     public function rules()
     {
         $rules = [
+            'employee_id' => ['nullable', 'exists:employees,id'],
             'leave_type_id' => ['nullable', 'exists:leave_types,id'],
             'start_day' => ['required', 'date'],
             'end_day' => ['required', 'date'],
