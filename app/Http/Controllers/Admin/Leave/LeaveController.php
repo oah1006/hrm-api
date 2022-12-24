@@ -36,7 +36,7 @@ class LeaveController extends Controller
 
         if ($request->filled('status')) {
             $status = $request->status;
-            $status->where('status', $status);
+            $leaves->where('status', $status);
         }
 
         $leaves = $leaves->paginate(8);
