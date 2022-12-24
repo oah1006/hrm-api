@@ -26,7 +26,7 @@ class LeaveTypeController extends Controller
             });
         }
 
-        $leaveTypes = $leaveTypes->paginate(4);
+        $leaveTypes = $leaveTypes->paginate(10);
 
         return response()->json($leaveTypes);
     }
@@ -67,7 +67,9 @@ class LeaveTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        $leaveType = LeaveType::findOrFail($id);
+
+        return response()->json($leaveType);
     }
 
     /**
