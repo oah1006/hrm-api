@@ -30,15 +30,9 @@ class EmployeeController extends Controller
                 $query->where('first_name', 'like', '%' . $q . '%')
                     ->orWhere('last_name', 'like', '%' . $q . '%')
                     ->orWhere('email', 'like', '%' . $q . '%')
-                    ->orWhere('phone_number', '%' . $q . '%')
+                    ->orWhere('phone_number', 'like', '%' . $q . '%')
                     ->orWhere('birth_date', 'like', '%' . $q . '%');
             });
-        }
-
-        if ($request->filled('gender')) {
-            $gender = $request->gender;
-
-            $employees->where('gender', $gender);
         }
 
         if ($request->filled('role')) {
@@ -51,6 +45,11 @@ class EmployeeController extends Controller
             $departmentId = $request->department_id;
 
             $employees->where('department_id', $departmentId);
+        }
+
+        if ($request->filled('status')) {
+            $status = $request->status;
+            $employees->where('status', $status);
         }
 
         $employees = $employees->paginate(10);
