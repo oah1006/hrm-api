@@ -51,7 +51,11 @@ class Employee extends Authenticatable
     ];
 
     public function department() {
-        return $this->belongsTo(Department::class, 'department_id');
+        return $this->belongsTo(Department::class);
+    }
+
+    public function leave() {
+        return $this->hasMany(Leave::class);
     }
 
 }

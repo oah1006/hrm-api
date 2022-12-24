@@ -14,6 +14,15 @@ class Leave extends Model
         'end_day',
         'reason',
         'status',
-        'leave_type_id'
+        'leave_type_id',
+        'employee_id'
     ];
+
+    public function employee() {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function leaveType() {
+        return $this->belongsTo(LeaveType::class);
+    }
 }

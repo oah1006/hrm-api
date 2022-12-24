@@ -12,4 +12,8 @@ class LeaveType extends Model
     protected $fillable = [
         'type_name',
     ];
+
+    public function leave() {
+        return $this->hasMany(Leave::class);
+    }
 }
