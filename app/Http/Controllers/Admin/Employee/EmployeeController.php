@@ -159,4 +159,10 @@ class EmployeeController extends Controller
 
         return response()->json(['message', 'You don\'t have permission to delete this employee!'], 400);
     }
+
+    public function profile(Request $request) {
+        $employee = $request->user();
+
+        return response()->json($employee);
+    }
 }
