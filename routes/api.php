@@ -39,8 +39,9 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::middleware('auth:sanctum')->group(function() {
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password');
-        Route::apiResource('employees', EmployeeController::class);
-        Route::get('profile', [EmployeeController::class, 'profile'])->name('profile');
+        Route::apiResource('employees', EmployeeController::class)->middleware('isAdmin');
+        Route::get('/profile', [EmployeeController::class, 'profile'])->name('profile');
+        Route::put('/edit-profile', [EmployeeController::class, 'editProfile'])->name('editProfile');
         Route::apiResource('departments', DepartmentController::class);
         Route::apiResource('leave-types', LeaveTypeController::class);
         Route::apiResource('leaves', LeaveController::class);
