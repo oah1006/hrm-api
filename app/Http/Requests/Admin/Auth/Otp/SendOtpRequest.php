@@ -24,7 +24,7 @@ class SendOtpRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'exists:employees,email']
+            'email' => ['email' ,'required', 'string', 'exists:employees,email']
         ];
     }
 }

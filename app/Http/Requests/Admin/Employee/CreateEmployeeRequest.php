@@ -27,8 +27,8 @@ class CreateEmployeeRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'unique:employees,email'],
-            'password' => ['nullable', 'string'],
+            'email' => ['required', 'string', 'unique:employees,email', 'email'],
+            'password' => ['required' ,'nullable', 'string'],
             'phone_number' => ['required', new PhoneNumber],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:0,1,2'],
