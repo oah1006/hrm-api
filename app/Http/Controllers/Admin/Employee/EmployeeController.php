@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Employee\UpdateProfileRequest;
 use App\Http\Requests\Admin\Employee\CreateEmployeeRequest;
 use App\Http\Requests\Admin\Employee\UpdateEmployeeRequest;
 
@@ -52,7 +53,7 @@ class EmployeeController extends Controller
             $employees->where('status', $status);
         }
 
-        $employees = $employees->paginate(10);
+        $employees = $employees->paginate(8);
 
 
         return response()->json($employees);
@@ -162,6 +163,16 @@ class EmployeeController extends Controller
 
     public function profile(Request $request) {
         $employee = $request->user();
+
+        return response()->json($employee);
+    }
+
+    public function editProfile(UpdateProfileRequest $request) {
+        $employee = $request->user();
+
+        $data = $request->validated();
+
+        $employee->update($data);
 
         return response()->json($employee);
     }
