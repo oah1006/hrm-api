@@ -21,12 +21,14 @@ class LeaveController extends Controller
 
         if ($request->filled('keywords')) {
             $q = $request->keywords;
+            
 
-            $leaves->where(function ($query) use ($q) {
-                $query->where('start_day', 'like', '%' . $q . '%')
-                    ->orWhere('end_day', 'like', '%' . $q . '%')
-                    ->orWhere('reason', 'like', '%' . $q . '%');
-            });
+            $leaves->where('start_day', 'like', '%' . $q . '%')
+                ->orWhere('end_day', 'like', '%' . $q . '%')
+                ->orWhere('reason', 'like', '%' . $q . '%')
+                ->orWhereHas('employee', function ($queryChild) use ($q) {
+                    $queryChild->where('first_name', 'like', '%' . $q . '%');
+                });
         }
 
         if ($request->filled('leave_type_id')) {
@@ -37,6 +39,11 @@ class LeaveController extends Controller
         if ($request->filled('status')) {
             $status = $request->status;
             $leaves->where('status', $status);
+        }
+        
+        if (auth()->user()->role === 'employee') {
+            $idEmployee = auth()->user()->id;
+            $leaves->where('employee_id', '=', $idEmployee);
         }
 
         $leaves = $leaves->paginate(8);
