@@ -30,6 +30,6 @@ class ForgotPasswordController extends Controller
         return response()->json([
             'employee' => $employee,
             'message' => "Update password employee successfully!"
-        ]);
+        ], 200);
     }
 }
