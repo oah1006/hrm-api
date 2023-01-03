@@ -36,6 +36,6 @@ class PhoneNumber implements Rule
      */
     public function message()
     {
-        return __('validation.phone_number');
+        return __('Số điện thoại không hợp lệ!');
     }
 }

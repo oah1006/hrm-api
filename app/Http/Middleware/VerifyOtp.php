@@ -21,7 +21,7 @@ class VerifyOtp
         
         if (!$otp || $otp->expires_at < now()) {
             return response()->json([
-                "message" => "OTP is invalid!",
+                "message" => "OTP của bạn đã hết thời gian hiệu lực",
             ], 400);
         }
         

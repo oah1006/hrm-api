@@ -19,12 +19,12 @@ class VerifyOtpController extends Controller
         if ($otp && Hash::check($data['otpCode'], $otp->token) && $otp->expires_at > now()) {
             return response()->json([
                 'token' => $otp->token,
-                'message' => 'Your OTP is valid!'
+                'message' => 'OTP của bạn hợp lệ'
             ], 200);
         }
 
         return response()->json([
-            'message' => 'Your OTP is invalid!'
+            'message' => 'OTP của bạn không hợp lệ! Vui lòng kiểm tra lại email'
         ], 400);
     }
 }
