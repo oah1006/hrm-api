@@ -23,18 +23,12 @@ class CreateLeaveRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'employee_id' => ['nullable', 'exists:employees,id'],
-            'leave_type_id' => ['nullable', 'exists:leave_types,id'],
+            'leave_type_id' => ['required' ,'nullable', 'exists:leave_types,id'],
             'start_day' => ['required', 'date'],
             'end_day' => ['required', 'date'],
             'reason' => ['required', 'string', 'min:2', 'max:255'],
         ];
-
-        if (auth()->user()->rule == 'admin') {
-            $rules['status'] = ['nullable', 'in:pending,approved,rejected'];
-        }
-
-        return $rules;
     }
 }

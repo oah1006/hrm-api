@@ -25,7 +25,7 @@ class UpdateDepartmentRequest extends FormRequest
     {
         return [
             'department_name' => ['required', 'string', 'unique:departments,department_name'],
-            'description' => ['nullable', 'string', 'min:2', 'max:255'],
+            'description' => ['required', 'nullable', 'string', 'min:2', 'max:255'],
         ];
     }
 }

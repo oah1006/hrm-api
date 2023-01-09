@@ -24,7 +24,7 @@ class CreateLeaveTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_name' => ['required', 'string', 'max:255'],
+            'type_name' => ['required', 'string', 'max:255', 'unique:leave_types,type_name'],
         ];  
     }
 }
