@@ -174,6 +174,8 @@ class EmployeeController extends Controller
 
         $employee->update($data);
 
-        return response()->json($employee);
+        return response()->json([
+            'employee' => $employee
+        ], 200);
     }
 }
