@@ -136,7 +136,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
-    'unique' => 'The :attribute has already been taken.',
+    'unique' => ':attribute đã tồn tại trong hệ thống',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -175,7 +175,14 @@ return [
         'password' => 'Mật khẩu',
         'last_name' => 'Họ',
         'birth_date' => 'Sinh nhật',
-        'phone_number' => 'Số điện thoại'
+        'phone_number' => 'Số điện thoại',
+        'department_name' => 'Phòng ban',
+        'description' => 'Mô tả',
+        'type_name' => 'Tên loại lý do nghỉ phép',
+        'leave_type_id' => 'Tên loại lý do',
+        'reason' => 'Lý do',
+        'start_day' => 'Ngày bắt đầu',
+        'end_day' => 'Ngày kết thúc'
     ]
 
 ];
